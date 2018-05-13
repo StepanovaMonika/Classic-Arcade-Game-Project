@@ -18,14 +18,14 @@ let Enemy = class {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // Multiplying any movement by the dt parameter
+    // Multiple any movement by the dt parameter
     // Ensuring the game runs at the same speed for
     // all computers.
     this.x += this.speed * dt;
     checkCollision(this);
 
     // Check if the enemy is at the end of the screen 
-    if (this.x >= 505) {
+    if (this.x >= 510) {
         this.x = 0;
         this.speed = 200 * Math.random() + 50 + speedIndex;
     }
