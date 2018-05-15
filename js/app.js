@@ -1,6 +1,8 @@
 // Global variables
 let score = 0;
 let textScore = document.getElementById('score');
+let winScreen = document.getElementById('winScreen');
+let restartBtn = document.getElementById('restartBtn');
 let speedIndex = 0;
 
 // Enemies our player must avoid
@@ -38,7 +40,7 @@ Enemy.prototype.render = function() {
 
 let checkCollision = function(enemy) {
     // Check the player and enemies for a collision 
-    if(player.x >= enemy.x - 35 && player.x <= enemy.x + 35 && player.y >= enemy.y - 40 && player.y <= enemy.y + 50) {
+    if(player.x >= enemy.x - 70 && player.x <= enemy.x + 75 && player.y >= enemy.y - 40 && player.y <= enemy.y + 50) {
         player.x = 200;
         player.y = 400;
         score = 0;
@@ -61,10 +63,13 @@ let Player = class {
 
 Player.prototype.update = function(dt) {
     // Checking winning top position
-    if (this.y == 0) {
+    if (this.y < -10) {
         score++;
         textScore.textContent = score;
-        speedIndex += 20;
+        if(score === 15) {
+            winScreen.style.display = "block";
+        };
+        speedIndex += 10;
         this.x = 200;
         this.y = 400;
     }
@@ -94,25 +99,25 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(keyPressed) {
     switch(keyPressed){
         case "left":
-            this.x = this.x - 25;
+            this.x = this.x - 100;
             break;
         case "right":
-            this.x = this.x + 25;
+            this.x = this.x + 100;
             break;
         case "up":
-            this.y = this.y - 25;
+            this.y = this.y - 82;
             break;
         case "down":
-            this.y = this.y + 25;
+            this.y = this.y + 82;
             break;
     }
 };
 
 
 // Instantiate enemy objects
-let enemy1 = new Enemy(0,60, 200 * Math.random() + 50);
-let enemy2 = new Enemy(0,140, 200 * Math.random() + 50);
-let enemy3 = new Enemy(0,220, 200 * Math.random() + 50);
+let enemy1 = new Enemy(0,62, 200 * Math.random() + 50);
+let enemy2 = new Enemy(0,144, 200 * Math.random() + 50);
+let enemy3 = new Enemy(0,226, 200 * Math.random() + 50);
 let allEnemies = [enemy1,enemy2,enemy3];
 
 // Place the player object on the start position
@@ -130,3 +135,10 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+restartBtn.addEventListener("click", function(){
+    winScreen.style.display = "none";
+    score = 0;
+    textScore.textContent = score;
+    speedInxed = 0;
+})
