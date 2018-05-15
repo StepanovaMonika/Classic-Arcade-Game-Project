@@ -13,5 +13,6 @@ The game is won when the player scores 15 points.
 ## How to run the game
 
 The game can be played directly in a <a href="https://stepanovamonika.github.io/Classic-Arcade-Game-Project/">browser</a>. 
+
 You can also download the files, unzip them and open index.html.
 
